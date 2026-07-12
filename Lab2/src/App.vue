@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { RouterLink } from 'vue-router'
+import { RouterLink, RouterView } from 'vue-router'
 
 </script>
 
@@ -13,6 +13,7 @@ import { RouterLink } from 'vue-router'
         </nav>
       </div>
     </header>
+    <RouterView />
   </div>
 </template>
 
