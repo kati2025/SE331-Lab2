@@ -12,14 +12,21 @@ const props = defineProps({
   page: {
     type: Number,
     required: true
+  },
+
+  limit: {
+    type: Number,
+    required: true
   }
 })
 const page = computed(() => props.page)
+const limit = computed(() => props.limit)
 
 onMounted (() => {
   watchEffect(() => {
     events.value = null
-    EventService.getEvents(2, page.value)
+
+    EventService.getEvents(limit.value, page.value)
       .then((response) => {
         events.value = response.data
         totalEvents.value = response.headers['x-total-count']
@@ -31,13 +38,23 @@ onMounted (() => {
 })
 
 const hasNextPage = computed(() => {
-    const totalPages = Math.ceil(totalEvents.value / 2)
+    const totalPages = Math.ceil(totalEvents.value / limit.value)
     return page.value < totalPages
   })
 </script>
 
 <template>
   <h1>Events For Good</h1>
+
+  <div class="page-size-selector">
+      <span>Events per page: </span>
+      <RouterLink :to="{ name: 'event-list-view', query: { page: 1, limit: 1 } }">1</RouterLink> |
+      <RouterLink :to="{ name: 'event-list-view', query: { page: 1, limit: 2 } }">2</RouterLink> |
+      <RouterLink :to="{ name: 'event-list-view', query: { page: 1, limit: 3 } }">3</RouterLink> |
+      <RouterLink :to="{ name: 'event-list-view', query: { page: 1, limit: 4 } }">4</RouterLink> |
+      <RouterLink :to="{ name: 'event-list-view', query: { page: 1, limit: 5 } }">5</RouterLink> |
+      <RouterLink :to="{ name: 'event-list-view', query: { page: 1, limit: 6 } }">6</RouterLink>
+    </div>
 
   <div class="events">
     <div v-for="event in events" :key="event.id" class="event-wrapper">
@@ -48,7 +65,7 @@ const hasNextPage = computed(() => {
     <div class="pagination">
       <RouterLink
         id="page-prev"
-        :to="{ name: 'event-list-view', query: { page: page - 1 } }"
+        :to="{ name: 'event-list-view', query: { page: page - 1, limit: limit } }"
         rel="prev"
         v-if="page != 1"
         >&#60; Prev Page</RouterLink
@@ -56,7 +73,7 @@ const hasNextPage = computed(() => {
 
   <RouterLink 
     id="page-next"
-    :to="{ name: 'event-list-view', query: { page: page + 1 } }"
+    :to="{ name: 'event-list-view', query: { page: page + 1, limit: limit } }"
     rel="next"
     v-if="hasNextPage"
     >Next Page &#62;</RouterLink
