@@ -21,7 +21,14 @@ onMounted(() => {
     <h1>Users List</h1>
     
     <div class="user-list">
-      <UserCard v-for="user in users" :key="user.id" :user="user" />
+      <RouterLink 
+        v-for="user in users" 
+        :key="user.id" 
+        :to="{ name: 'user-details', params: { id: user.id } }"
+        class="user-link"
+      >
+        <UserCard :user="user" />
+      </RouterLink>
     </div>
   </div>
 </template>
