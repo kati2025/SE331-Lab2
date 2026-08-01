@@ -33,7 +33,12 @@ const router = createRouter({
         }
       ]
     },
-    
+    {
+      path: '/404/:resource',
+      name: '404-resource',
+      component: NotFoundView,
+      props: true
+    },
     {
       path: '/:catchAll(.*)',
       name: 'not-found',

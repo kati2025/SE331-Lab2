@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { ref, onMounted } from 'vue'
 import UserService from '@/services/UserService'
-import { RouterLink, RouterView } from 'vue-router'
+import { RouterLink, RouterView, useRouter } from 'vue-router'
 
 const props = defineProps({
   id: {
@@ -9,8 +9,11 @@ const props = defineProps({
     required: true
   }
 })
+
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 const user = ref<any | null>(null)
+
+const router = useRouter()
 
 onMounted(() => {
   UserService.getUser(Number(props.id))
@@ -19,6 +22,7 @@ onMounted(() => {
     })
     .catch((error) => {
       console.error('Error fetching user:', error)
+      router.push({ name: '404-resource', params: { resource: 'user' } })
     })
 })
 </script>
