@@ -3,6 +3,8 @@ import { ref, onMounted } from 'vue'
 import UserService from '@/services/UserService'
 import UserCard from '@/components/UserCard.vue'
 
+
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 const users = ref<any[] | null>(null)
 
 onMounted(() => {
@@ -24,7 +26,7 @@ onMounted(() => {
       <RouterLink 
         v-for="user in users" 
         :key="user.id" 
-        :to="{ name: 'user-details', params: { id: user.id } }"
+        :to="{ name: 'user-layout', params: { id: user.id } }"
         class="user-link"
       >
         <UserCard :user="user" />
@@ -44,5 +46,9 @@ onMounted(() => {
   display: flex;
   flex-direction: column;
   align-items: center;
+}
+.user-link {
+  text-decoration: none;
+  color: inherit;
 }
 </style>

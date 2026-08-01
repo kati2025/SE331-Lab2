@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { ref, onMounted } from 'vue'
 import UserService from '@/services/UserService'
+import { RouterLink, RouterView } from 'vue-router'
 
 const props = defineProps({
   id: {
@@ -8,7 +9,7 @@ const props = defineProps({
     required: true
   }
 })
-
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 const user = ref<any | null>(null)
 
 onMounted(() => {
@@ -25,10 +26,14 @@ onMounted(() => {
 <template>
   <div v-if="user" class="user-layout">
     <h1>{{ user.name }}</h1>
-    <p><strong>Email:</strong> {{ user.email }}</p>
-    <p><strong>Website:</strong> {{ user.website }}</p>
-    
+    <p>{{ user.email }}</p>
 
+    <nav class="nav-links">
+      <RouterLink :to="{ name: 'user-profile' }">Profile</RouterLink> |
+      <RouterLink :to="{ name: 'user-posts' }">Posts</RouterLink>
+    </nav>
+
+    <RouterView :user="user" :id="id" />
   </div>
 </template>
 
@@ -36,5 +41,19 @@ onMounted(() => {
 .user-layout {
   text-align: center;
   padding: 20px;
+  max-width: 600px;
+  margin: 0 auto;
+}
+.nav-links {
+  margin: 20px 0;
+  font-weight: bold;
+}
+.nav-links a {
+  color: #2c3e50;
+  text-decoration: none;
+  padding: 0 10px;
+}
+.nav-links a.router-link-exact-active {
+  color: #42b983;
 }
 </style>
