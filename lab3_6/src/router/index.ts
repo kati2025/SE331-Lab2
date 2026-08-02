@@ -4,6 +4,7 @@ import UserLayoutView from '../views/user/UserLayoutView.vue'
 import UserProfileView from '../views/user/UserProfileView.vue'
 import UserPostsView from '../views/user/UserPostsView.vue'
 import NotFoundView from '../views/NotFoundView.vue'
+import UserEditView from '../views/user/UserEditView.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -29,6 +30,12 @@ const router = createRouter({
           path: 'posts',
           name: 'user-posts',
           component: UserPostsView,
+          props: true
+        },
+        {
+          path: 'edit',
+          name: 'user-edit',
+          component: UserEditView,
           props: true
         }
       ]

@@ -33,9 +33,10 @@ onMounted(() => {
     <p>{{ user.email }}</p>
 
     <nav class="nav-links">
-      <RouterLink :to="{ name: 'user-profile' }">Profile</RouterLink> |
-      <RouterLink :to="{ name: 'user-posts' }">Posts</RouterLink>
-    </nav>
+  <RouterLink :to="{ name: 'user-profile' }">Profile</RouterLink> |
+  <RouterLink :to="{ name: 'user-posts' }">Posts</RouterLink> |
+  <RouterLink :to="{ name: 'user-edit' }">Edit</RouterLink>
+</nav>
 
     <RouterView :user="user" :id="id" />
   </div>
