@@ -7,6 +7,8 @@ import NotFoundView from '../views/NotFoundView.vue'
 import UserEditView from '../views/user/UserEditView.vue'
 import nProgress from 'nprogress'
 import 'nprogress/nprogress.css'
+import { useEventStore } from '@/stores/event'
+import UserService from '@/services/UserService'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -21,6 +23,23 @@ const router = createRouter({
       name: 'user-layout',
       component: UserLayoutView,
       props: true,
+      beforeEnter: (to) => {
+        const id = parseInt(to.params.id as string)
+        const eventStore = useEventStore()
+        
+        return UserService.getUser(id)
+          .then((response) => {
+            eventStore.setEvent(response.data)
+          })
+          .catch((error) => {
+            if (error.response && error.response.status === 404) {
+              return {
+                name: '404-resource',
+                params: { resource: 'user' }
+              }
+            }
+          })
+      },
       children: [
         {
           path: '',
@@ -53,8 +72,9 @@ const router = createRouter({
       name: 'not-found',
       component: NotFoundView
     }
-  ],
+  ]
 })
+
 router.beforeEach(() => {
   nProgress.start()
 })
@@ -62,4 +82,5 @@ router.beforeEach(() => {
 router.afterEach(() => {
   nProgress.done()
 })
+
 export default router
