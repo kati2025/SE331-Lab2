@@ -5,34 +5,39 @@ import type { Event } from '@/types'
 import { ref, onMounted, computed, watchEffect } from 'vue' 
 import EventService from '@/services/EventService'
 
+import { useRouter } from 'vue-router'
+
 const events = ref<Event[] | null>(null)
 const totalEvents = ref(0)
+
+const router = useRouter()
 
 const props = defineProps({
   page: {
     type: Number,
     required: true
   },
-
   limit: {
     type: Number,
     required: true
   }
 })
+
 const page = computed(() => props.page)
 const limit = computed(() => props.limit)
 
 onMounted (() => {
   watchEffect(() => {
     events.value = null
+    
 
     EventService.getEvents(limit.value, page.value)
       .then((response) => {
         events.value = response.data
         totalEvents.value = response.headers['x-total-count']
       })
-      .catch((error) => {
-        console.error('There was an error!', error)
+      .catch(() => {
+        router.push({ name: 'network-error-view' })
       })
   })
 })
@@ -40,7 +45,7 @@ onMounted (() => {
 const hasNextPage = computed(() => {
     const totalPages = Math.ceil(totalEvents.value / limit.value)
     return page.value < totalPages
-  })
+})
 </script>
 
 <template>
