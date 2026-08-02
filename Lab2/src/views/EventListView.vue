@@ -28,10 +28,7 @@ const limit = computed(() => props.limit)
 
 onMounted (() => {
   watchEffect(() => {
-    events.value = null
-    
-
-    EventService.getEvents(limit.value, page.value)
+    EventService.getEvents(3, page.value)
       .then((response) => {
         events.value = response.data
         totalEvents.value = response.headers['x-total-count']
@@ -43,7 +40,7 @@ onMounted (() => {
 })
 
 const hasNextPage = computed(() => {
-    const totalPages = Math.ceil(totalEvents.value / limit.value)
+    const totalPages = Math.ceil(totalEvents.value / 3)
     return page.value < totalPages
 })
 </script>
