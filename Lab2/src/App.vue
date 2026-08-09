@@ -8,7 +8,7 @@ const { message } = storeToRefs(store)
 </script>
 
 <template>
-  <div id="layout">
+  <div class="text-center font-sans text-gray-700 antialiased">
     <header>
       <div id="flashMessage" v-if="message">
         <h4>{{ message }}</h4>
@@ -27,15 +27,7 @@ const { message } = storeToRefs(store)
 </template>
 
 <style>
-
-#layout {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-}
-
+/*antialiasedลบรอยหยัก รับขอบตัวอักษรให้ดูเรียบ*/
 nav {
   padding: 30px;
 }
