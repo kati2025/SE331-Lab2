@@ -58,7 +58,7 @@ const hasNextPage = computed(() => {
       <RouterLink :to="{ name: 'event-list-view', query: { page: 1, limit: 6 } }">6</RouterLink>
     </div>
 
-  <div class="events">
+  <div class="flex flex-col items-center">
     <div v-for="event in events" :key="event.id" class="event-wrapper">
       <EventCard :event="event" />
       <EventOrganizer :event="event" />
@@ -85,11 +85,6 @@ const hasNextPage = computed(() => {
 </template>
 
 <style scoped>
-.events {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
 .pagination {
   display: flex;
   width: 290px;
