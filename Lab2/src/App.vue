@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import { SpeedInsights } from '@vercel/speed-insights/vue'
 import { RouterLink, RouterView } from 'vue-router'
 import { useMessageStore } from './stores/message'
 import { storeToRefs } from 'pinia'
@@ -8,6 +9,7 @@ const { message } = storeToRefs(store)
 </script>
 
 <template>
+  <SpeedInsights />
   <div class="text-center font-sans text-gray-700 antialiased">
     <header>
       <div id="flashMessage" class="animate-fade" v-if="message">
