@@ -7,23 +7,8 @@ defineProps<{
 </script>
 
 <template>
-  <div class="organizer-card">
-    <p>{{ event.category }}</p>
-    <p>{{ event.organizer }}</p>
+  <div class="text-right p-[20px] w-[250px] border border-[#39495c] mb-[18px]">
+    <p class="text-[16px] my-[5px]">{{ event.category}}</p>
+    <p class="text-[16px] my-[5px]">{{ event.organizer}}</p>
   </div>
 </template>
-
-<style scoped>
-.organizer-card {
-  text-align: right; 
-  padding: 20px;
-  width: 250px;
-  border: 1px solid #39495c;
-  margin-bottom: 18px;
-}
-
-.organizer-card p {
-  font-size: 16px; 
-  margin: 5px 0;
-}
-</style>

@@ -64,9 +64,9 @@ const hasNextPage = computed(() => {
       <EventOrganizer :event="event" />
     </div>
 
-    <div class="pagination">
+    <div class="flex w-[290px]">
       <RouterLink
-        id="page-prev"
+        class="flex-1 no-underline text-[#2c3e50] text-left"
         :to="{ name: 'event-list-view', query: { page: page - 1, limit: limit } }"
         rel="prev"
         v-if="page != 1"
@@ -74,7 +74,7 @@ const hasNextPage = computed(() => {
       >
 
   <RouterLink 
-    id="page-next"
+    class="flex-1 no-underline text-[#2c3e50] text-right"
     :to="{ name: 'event-list-view', query: { page: page + 1, limit: limit } }"
     rel="next"
     v-if="hasNextPage"
@@ -84,21 +84,3 @@ const hasNextPage = computed(() => {
   </div>
 </template>
 
-<style scoped>
-.pagination {
-  display: flex;
-  width: 290px;
-}
-.pagination a {
-  flex: 1;
-  text-decoration: none;
-  color:#2c3e50;
-}
-
-#page-prev {
-  text-align: left;
-}
-#page-next {
-  text-align: right;
-}
-</style>
